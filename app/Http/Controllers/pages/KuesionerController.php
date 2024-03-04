@@ -14,6 +14,8 @@ class KuesionerController extends Controller
         $data['guru'] = DB::table('users')->where('role', '3')->where('status', 'ON')->where('id', $id)->get();
         // dd(count($data['guru']));
         $data['pertanyaan'] = DB::table('pertanyaan')->where('status', 'ON')->get();
+        $data['done'] = DB::table('kuesioner')->where('id_guru', $id)->where('id_kelas', request()->user()->kelas_id)->get();
+        // dd($data['done']);
         return view('content.kuesioner.index', $data);
     }
     public function listGuru()
@@ -24,7 +26,7 @@ class KuesionerController extends Controller
     }
     function add(Request $request)
     {
-        $cekData = DB::table('kuesioner')->where('id_guru', $request->id_guru)->where('id_siswa', request()->user()->id)->where('id_kelas', $request->id_kelas)->where('nilai', $request->nilai)->first();
+        $cekData = DB::table('kuesioner')->where('id_guru', $request->id_guru)->where('id_siswa', request()->user()->id)->where('id_kelas', $request->id_kelas)->where('id_pertanyaan', $request->id_pertanyaan)->first();
 
         if ($cekData == null) {
             # code...
@@ -37,13 +39,22 @@ class KuesionerController extends Controller
                 'nilai' =>  $request->nilai,
                 'created_at' => now()
             ];
-            DB::table('kuesioner')->updateOrInsert($data);
+            DB::table('kuesioner')->insert($data);
             return response()->json([
                 'success' => true
             ]);
         } else {
+            $data = [
+                'id_guru' => $request->id_guru,
+                'id_siswa' => request()->user()->id,
+                'id_kelas' => $request->id_kelas,
+                'id_pertanyaan' => $request->id_pertanyaan,
+                'nilai' =>  $request->nilai,
+                'created_at' => now()
+            ];
+            DB::table('kuesioner')->where('id_guru', $request->id_guru)->where('id_siswa', request()->user()->id)->where('id_kelas', $request->id_kelas)->where('id_pertanyaan', $request->id_pertanyaan)->update($data);
             return response()->json([
-                'success' => false
+                'success' => true
             ]);
         }
         // dd($data);
