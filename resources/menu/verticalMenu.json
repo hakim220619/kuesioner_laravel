@@ -1,0 +1,37 @@
+{
+  "menu": [
+    {
+      "url": "/dashboard",
+      "name": "Home",
+      "icon": "menu-icon tf-icons mdi mdi-home-outline",
+      "slug": "pages-home"
+    },
+    {
+      "url": "/page-2",
+      "icon": "menu-icon tf-icons mdi mdi-file-document-outline",
+      "name": "Siswa",
+      "slug": "Siswa"
+    },
+    {
+      "url": "/pages/misc-error",
+      "name": "Kelas",
+      "icon": "menu-icon tf-icons mdi mdi-alert-circle-outline",
+      "slug": "Kelas",
+      "target": "_blank"
+    },
+    {
+      "url": "/auth/login-basic",
+      "name": "Jurusan",
+      "icon": "menu-icon tf-icons mdi mdi-login",
+      "slug": "Jurusan",
+      "target": "_blank"
+    },
+    {
+      "url": "/auth/register-basic",
+      "name": "Pertanyaan",
+      "icon": "menu-icon tf-icons mdi mdi-account-outline",
+      "slug": "pertanyaan",
+      "target": "_blank"
+    }
+  ]
+}
