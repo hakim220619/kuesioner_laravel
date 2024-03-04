@@ -186,21 +186,12 @@
     @endif
 
     <script>
-        function select(valueOfRadio) {
-            $('#asd1').prop('checked')
-            $('#asd2').prop('checked')
-            $('#asd3').prop('checked')
-            switch (valueOfRadio) { // if it equals 
-                case 2:
-                    $('#asd2').prop('checked', true);
-                    break;
-                case 3:
-                    $('#asd3').prop('checked', true);
-                    break;
-                default:
-                    $('#asd1').prop('checked', true);
-            }
+        getchecked()
+
+        function getchecked() {
+
         }
+        document.getElementById('asd6').setAttribute("checked", "checked")
 
         function getValue(params1, params2) {
             const id_guru = $('#id_guru').val();
