@@ -124,7 +124,7 @@
     @if (count($guru) != 0)
         <div class="card-body">
             <div class="demo-inline-spacing">
-                <a href="/list-guru" class="btn btn-primary">Save</a>
+                <a href="/list-kuesioner" class="btn btn-primary">Back</a>
             </div>
         </div>
     @endif

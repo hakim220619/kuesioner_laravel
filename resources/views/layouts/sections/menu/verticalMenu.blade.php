@@ -7,7 +7,7 @@
     <!-- ! Hide app brand if navbar-full -->
     @if (!isset($navbarFull))
         <div class="app-brand demo">
-            <a href="{{ url('/') }}" class="app-brand-link">
+            <a href="{{ url('/dashboard') }}" class="app-brand-link">
                 <span class="app-brand-logo demo">@include('_partials.macros', ['width' => 25, 'withbg' => 'var(--bs-primary)'])</span>
                 <span class="app-brand-text demo menu-text fw-bold ms-2">{{ config('variables.templateName') }}</span>
             </a>
@@ -96,7 +96,7 @@
                 {{-- submenu --}}
             </li>
             <li class="menu-item {{ $activeClass }}">
-                <a href="/list-guru" class="menu-link"> <i
+                <a href="/list-kuesioner" class="menu-link"> <i
                         class="menu-icon tf-icons mdi mdi-arrow-right-bold-circle"></i>
                     <div>Kuesioner</div>
                 </a>

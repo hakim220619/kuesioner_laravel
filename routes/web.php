@@ -45,9 +45,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [HomePage::class, 'index'])->name('dashboard');
 
     Route::get('/kuesioner/{id}', [KuesionerController::class, 'index'])->name('kuesioner');
-    Route::get('/list-guru', [KuesionerController::class, 'listGuru'])->name('kuesioner.listGuru');
+    Route::get('/list-kuesioner', [KuesionerController::class, 'listkuesioner'])->name('kuesioner.listkuesioner');
     Route::post('/kuesionerAdd', [KuesionerController::class, 'add'])->name('kuesioner.add');
     Route::post('/load_data', [KuesionerController::class, 'load_data'])->name('load_data.kuesioner');
+    Route::get('/keusionerall', [KuesionerController::class, 'keusionerall'])->name('load_data.keusionerall');
 
     //siswa
     Route::get('/siswa', [SiswaController::class, 'index'])->name('siswa');

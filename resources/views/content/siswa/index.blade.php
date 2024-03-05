@@ -3,6 +3,7 @@
 @section('title', 'Tables - Basic Tables')
 
 @section('content')
+
     <h4 class="py-3 mb-4"><span class="text-muted fw-light">List /</span> Siswa</h4>
 
     <!-- Basic Bootstrap Table -->
@@ -15,11 +16,12 @@
             <div class="card-body">
                 {{-- <h5 class="card-header">Table Basic</h5> --}}
                 <div class="table-responsive text-nowrap">
-                    <table class="table">
+                    <table class="table" id="myTable">
                         <thead>
                             <tr>
                                 <th>No</th>
                                 <th>Full Name</th>
+                                <th>Email</th>
                                 <th>Kelas</th>
                                 <th>Actions</th>
                             </tr>
@@ -32,6 +34,7 @@
                                 <tr>
                                     <td>{{ $no++ }}</td>
                                     <td>{{ $a->name }}</td>
+                                    <td>{{ $a->email }}</td>
                                     <td>{{ $a->nama_kelas }}</td>
 
                                     {{-- <td>
@@ -259,4 +262,5 @@
             </div>
         </div>
     </div>
+
 @endsection
