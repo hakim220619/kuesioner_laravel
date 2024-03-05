@@ -3,7 +3,7 @@
 @section('title', 'Tables - Basic Tables')
 
 @section('content')
-    <h4 class="py-3 mb-4"><span class="text-muted fw-light">Tables /</span> Pemilik</h4>
+    <h4 class="py-3 mb-4"><span class="text-muted fw-light">List /</span> Guru</h4>
 
     <!-- Basic Bootstrap Table -->
     <div class="card">

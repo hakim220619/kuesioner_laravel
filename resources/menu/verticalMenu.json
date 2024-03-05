@@ -7,31 +7,28 @@
       "slug": "pages-home"
     },
     {
-      "url": "/page-2",
+      "url": "/siswa",
       "icon": "menu-icon tf-icons mdi mdi-file-document-outline",
       "name": "Siswa",
       "slug": "Siswa"
     },
     {
-      "url": "/pages/misc-error",
+      "url": "/kelas",
       "name": "Kelas",
       "icon": "menu-icon tf-icons mdi mdi-alert-circle-outline",
-      "slug": "Kelas",
-      "target": "_blank"
+      "slug": "Kelas"
     },
     {
-      "url": "/auth/login-basic",
+      "url": "/jurusan",
       "name": "Jurusan",
       "icon": "menu-icon tf-icons mdi mdi-login",
-      "slug": "Jurusan",
-      "target": "_blank"
+      "slug": "Jurusan"
     },
     {
-      "url": "/auth/register-basic",
+      "url": "/pertanyaan",
       "name": "Pertanyaan",
       "icon": "menu-icon tf-icons mdi mdi-account-outline",
-      "slug": "pertanyaan",
-      "target": "_blank"
+      "slug": "pertanyaan"
     }
   ]
 }

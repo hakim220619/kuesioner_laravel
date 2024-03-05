@@ -45,127 +45,71 @@
                             <tr>
                                 <td>{{ $no++ }}</td>
                                 <td>{!! $a->nama_pertanyaan !!}</td>
-                                @if (count($done) == count($pertanyaan))
-                                    <td>
-                                        <div class="form-check form-check-inline mt-3">
-                                            <input class="form-check-input" type="radio" name="{{ $a->id }}asd"
-                                                id="asd1" value="1" style="accent-color: #e74c3c;" />
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="form-check form-check-inline mt-3">
-                                            <input class="form-check-input" type="radio" name="{{ $a->id }}asd"
-                                                id="asd2" value="2" />
+                                <td>
+                                    <div class="form-check form-check-inline mt-3">
+                                        <input class="form-check-input" type="radio" name="{{ $a->id }}"
+                                            id="inlineRadio1{{ $a->id }}"
+                                            onclick="return getValue(this.value, this.name)" value="1"
+                                            style="accent-color: #e74c3c;" />
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-check form-check-inline mt-3">
+                                        <input class="form-check-input" type="radio" name="{{ $a->id }}"
+                                            id="inlineRadio2{{ $a->id }}"
+                                            onclick="return getValue(this.value, this.name)" value="2" />
 
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="form-check form-check-inline mt-3">
-                                            <input class="form-check-input" type="radio" name="{{ $a->id }}asd"
-                                                id="asd3" value="3" />
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-check form-check-inline mt-3">
+                                        <input class="form-check-input" type="radio" name="{{ $a->id }}"
+                                            id="inlineRadio3{{ $a->id }}"
+                                            onclick="return getValue(this.value, this.name)" value="3" />
 
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="form-check form-check-inline mt-3">
-                                            <input class="form-check-input" type="radio" name="{{ $a->id }}asd"
-                                                id="asd4" value="4" />
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-check form-check-inline mt-3">
+                                        <input class="form-check-input" type="radio" name="{{ $a->id }}"
+                                            id="inlineRadio4{{ $a->id }}"
+                                            onclick="return getValue(this.value, this.name)" value="4" />
 
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="form-check form-check-inline mt-3">
-                                            <input class="form-check-input" type="radio" name="{{ $a->id }}asd"
-                                                id="asd5" value="5" />
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-check form-check-inline mt-3">
+                                        <input class="form-check-input" type="radio" name="{{ $a->id }}"
+                                            id="inlineRadio5{{ $a->id }}"
+                                            onclick="return getValue(this.value, this.name)" value="5" />
 
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="form-check form-check-inline mt-3">
-                                            <input class="form-check-input" type="radio" name="{{ $a->id }}asd"
-                                                id="asd6" value="6" />
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-check form-check-inline mt-3">
+                                        <input class="form-check-input" type="radio" name="{{ $a->id }}"
+                                            id="inlineRadio6{{ $a->id }}"
+                                            onclick="return getValue(this.value, this.name)" value="6" />
 
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="form-check form-check-inline mt-3">
-                                            <input class="form-check-input" type="radio" name="{{ $a->id }}asd"
-                                                id="asd7" value="7" />
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-check form-check-inline mt-3">
+                                        <input class="form-check-input" type="radio" name="{{ $a->id }}"
+                                            id="inlineRadio7{{ $a->id }}"
+                                            onclick="return getValue(this.value, this.name)" value="7" />
 
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="form-check form-check-inline mt-3">
-                                            <input class="form-check-input" type="radio" name="{{ $a->id }}asd"
-                                                id="asd8" value="8" />
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-check form-check-inline mt-3">
+                                        <input class="form-check-input" type="radio" name="{{ $a->id }}"
+                                            id="inlineRadio8{{ $a->id }}"
+                                            onclick="return getValue(this.value, this.name)" value="8" />
 
-                                        </div>
-                                    </td>
-                                @else
-                                    <td>
-                                        <div class="form-check form-check-inline mt-3">
-                                            <input class="form-check-input" type="radio" name="{{ $a->id }}"
-                                                id="inlineRadio" onclick="return getValue(this.value, this.name)"
-                                                value="1" style="accent-color: #e74c3c;" />
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="form-check form-check-inline mt-3">
-                                            <input class="form-check-input" type="radio" name="{{ $a->id }}"
-                                                id="inlineRadio" onclick="return getValue(this.value, this.name)"
-                                                value="2" />
+                                    </div>
+                                </td>
 
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="form-check form-check-inline mt-3">
-                                            <input class="form-check-input" type="radio" name="{{ $a->id }}"
-                                                id="inlineRadio" onclick="return getValue(this.value, this.name)"
-                                                value="3" />
-
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="form-check form-check-inline mt-3">
-                                            <input class="form-check-input" type="radio" name="{{ $a->id }}"
-                                                id="inlineRadio" onclick="return getValue(this.value, this.name)"
-                                                value="4" />
-
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="form-check form-check-inline mt-3">
-                                            <input class="form-check-input" type="radio" name="{{ $a->id }}"
-                                                id="inlineRadio" onclick="return getValue(this.value, this.name)"
-                                                value="5" />
-
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="form-check form-check-inline mt-3">
-                                            <input class="form-check-input" type="radio" name="{{ $a->id }}"
-                                                id="inlineRadio" onclick="return getValue(this.value, this.name)"
-                                                value="6" />
-
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="form-check form-check-inline mt-3">
-                                            <input class="form-check-input" type="radio" name="{{ $a->id }}"
-                                                id="inlineRadio" onclick="return getValue(this.value, this.name)"
-                                                value="7" />
-
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="form-check form-check-inline mt-3">
-                                            <input class="form-check-input" type="radio" name="{{ $a->id }}"
-                                                id="inlineRadio" onclick="return getValue(this.value, this.name)"
-                                                value="8" />
-
-                                        </div>
-                                    </td>
-                                @endif
                             </tr>
                         @endforeach
                     </tbody>
@@ -186,20 +130,12 @@
     @endif
 
     <script>
-        getchecked()
-
-        function getchecked() {
-
-        }
-        document.getElementById('asd6').setAttribute("checked", "checked")
-
         function getValue(params1, params2) {
             const id_guru = $('#id_guru').val();
             const id_kelas = $('#id_kelas').val();
             const nilai = params1;
             const id_pertanyaan = params2
-
-            console.log(id_guru);
+            console.log(params2);
             $.ajax({
                 type: 'POST',
                 url: '{{ route('kuesioner.add') }}',
@@ -221,6 +157,43 @@
             });
 
         }
+    </script>
+    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            getchecked()
+
+            function getchecked() {
+
+
+
+                $.ajax({
+                    type: 'POST',
+                    url: '{{ route('load_data.kuesioner') }}',
+                    async: true,
+                    data: {
+                        "_token": "{{ csrf_token() }}",
+                        id_guru: '{{ $id_guru }}',
+                        id_kelas: '{{ $id_kelas }}',
+
+                    },
+                    dataType: 'json',
+                    success: function(data) {
+                        // console.log(data);
+                        var i;
+                        var no = 1;
+                        for (i = 0; i < data.length; i++) {
+                            console.log(data[i].id_pertanyaan);
+                            document.getElementById('inlineRadio' + data[i].nilai + '' + data[i]
+                                .id_pertanyaan + '').setAttribute("checked", "checked")
+                        }
+                        // $('#datatable').DataTable();
+
+
+                    }
+                });
+            }
+        })
     </script>
     <!--/ Responsive Table -->
 @endsection

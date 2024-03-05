@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\pages;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Database\Eloquent\Casts\Json;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -15,6 +16,8 @@ class KuesionerController extends Controller
         // dd(count($data['guru']));
         $data['pertanyaan'] = DB::table('pertanyaan')->where('status', 'ON')->get();
         $data['done'] = DB::table('kuesioner')->where('id_guru', $id)->where('id_kelas', request()->user()->kelas_id)->get();
+        $data['id_guru'] = $id;
+        $data['id_kelas'] =  request()->user()->kelas_id;
         // dd($data['done']);
         return view('content.kuesioner.index', $data);
     }
@@ -58,5 +61,11 @@ class KuesionerController extends Controller
             ]);
         }
         // dd($data);
+    }
+
+    function load_data(Request $request)
+    {
+        $data = DB::table('kuesioner')->where('id_guru', $request->id_guru)->where('id_kelas', $request->id_kelas)->where('id_siswa', request()->user()->id)->get();
+        echo json_encode($data);
     }
 }
