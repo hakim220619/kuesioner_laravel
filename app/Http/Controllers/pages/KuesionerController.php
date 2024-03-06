@@ -14,7 +14,7 @@ class KuesionerController extends Controller
         // dd($id);
         $data['guru'] = DB::table('users')->where('role', '3')->where('status', 'ON')->where('id', $id)->get();
         // dd(count($data['guru']));
-        $data['pertanyaan'] = DB::table('pertanyaan')->where('status', 'ON')->get();
+        $data['pertanyaan'] = DB::table('pertanyaan')->where('status', 'ON')->where('type', 'PENGAJAR')->get();
         $data['done'] = DB::table('kuesioner')->where('id_guru', $id)->where('id_kelas', request()->user()->kelas_id)->get();
         $data['id_guru'] = $id;
         $data['id_kelas'] =  request()->user()->kelas_id;
@@ -41,6 +41,7 @@ class KuesionerController extends Controller
                 'id_guru' => $request->id_guru == null ? 0 : $request->id_guru,
                 'id_siswa' => request()->user()->id,
                 'id_kelas' => $request->id_kelas == null ? request()->user()->kelas_id : $request->id_kelas,
+                'id_jurusan' => $request->id_jurusan == null ? request()->user()->jurusan_id : $request->id_jurusan,
                 'id_pertanyaan' => $request->id_pertanyaan,
                 'nilai' =>  $request->nilai,
                 'created_at' => now()
@@ -54,6 +55,7 @@ class KuesionerController extends Controller
                 'id_guru' => $request->id_guru == null ? 0 : $request->id_guru,
                 'id_siswa' => request()->user()->id,
                 'id_kelas' => $request->id_kelas == null ? request()->user()->kelas_id : $request->id_kelas,
+                'id_jurusan' => $request->id_jurusan == null ? request()->user()->jurusan_id : $request->id_jurusan,
                 'id_pertanyaan' => $request->id_pertanyaan,
                 'nilai' =>  $request->nilai,
                 'created_at' => now()

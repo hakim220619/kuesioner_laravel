@@ -85,7 +85,7 @@
     <div class="col-12">
         <div class="card mb-4">
             <div class="card-header">
-                <h5 class="card-header">Perpustakaan</h5>
+                <h5 class="card-header">Laboratorium</h5>
 
                 <div class="card">
 
@@ -113,7 +113,7 @@
                                 @php
                                     $no = 1;
                                 @endphp
-                                @foreach ($perpustakaan as $a)
+                                @foreach ($laboratorium as $a)
                                     <input type="hidden" value="{{ $a->id }}" id="id_pertanyaan{{ $a->id }}"
                                         name="id_pertanyaan{{ $a->id }}">
 
@@ -202,7 +202,7 @@
     <div class="col-12">
         <div class="card mb-4">
             <div class="card-header">
-                <h5 class="card-header">Laboratorium</h5>
+                <h5 class="card-header">Perpustakaan</h5>
 
                 <div class="card">
 
@@ -230,7 +230,7 @@
                                 @php
                                     $no = 1;
                                 @endphp
-                                @foreach ($laboratorium as $a)
+                                @foreach ($perpustakaan as $a)
                                     <input type="hidden" value="{{ $a->id }}"
                                         id="id_pertanyaan{{ $a->id }}" name="id_pertanyaan{{ $a->id }}">
 
@@ -315,6 +315,8 @@
             </div>
         </div>
     </div>
+    <br>
+
 
     <script>
         function getValue(params1, params2) {

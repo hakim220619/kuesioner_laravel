@@ -70,4 +70,10 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/pertanyaan-add', [PertanyaanController::class, 'add'])->name('pertanyaan.add');
     Route::post('/pertanyaan-edit', [PertanyaanController::class, 'edit'])->name('pertanyaan.edit');
     Route::get('/pertanyaan/{id}', [PertanyaanController::class, 'delete'])->name('pertanyaan.delete');
+
+    //home
+
+    Route::get('/perhitunganpengajar', [HomePage::class, 'perhitunganpengajar'])->name('home.perhitunganpengajar');
+    Route::get('/perhitunganLab', [HomePage::class, 'perhitunganLab'])->name('home.perhitunganLab');
+    Route::get('/perhitunganperpus', [HomePage::class, 'perhitunganperpus'])->name('home.perhitunganperpus');
 });
