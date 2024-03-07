@@ -138,6 +138,7 @@
     <script>
         function getValuekelas() {
             const id_kelas = $('#id_kelas').val();
+            const id_jurusan = $('#id_jurusan').val();
             $.ajax({
                 type: 'GET',
                 url: '{{ route('home.perhitunganpengajar') }}',
@@ -145,6 +146,7 @@
                 data: {
                     "_token": "{{ csrf_token() }}",
                     id_kelas: id_kelas,
+                    id_jurusan: id_jurusan,
                 },
                 dataType: 'json',
                 success: function(data) {

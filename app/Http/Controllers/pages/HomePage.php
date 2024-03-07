@@ -16,10 +16,14 @@ class HomePage extends Controller
   }
   function perhitunganpengajar(Request $request)
   {
+    $sql = '';
+    if (isset($request->id_jurusan) && $request->id_jurusan != 'all') {
+      $sql .= " and k.id_jurusan = '" . $request->id_jurusan . "'";
+    }
     //Pengajar
-    $getjumlahdataPengajar = DB::select("SELECT k.* FROM kuesioner k, pertanyaan p WHERE k.id_pertanyaan=p.id  and p.type = 'PENGAJAR' and k.id_guru != '0' and k.id_kelas ='" . $request->id_kelas . "'");
-    $getPromotor = DB::select("SELECT k.* FROM kuesioner k, pertanyaan p WHERE k.id_pertanyaan=p.id and k.nilai >= '7' and p.type = 'PENGAJAR' and k.id_guru != '0' and k.id_kelas ='" . $request->id_kelas . "'");
-    $getDektrator = DB::select("SELECT k.* FROM kuesioner k, pertanyaan p WHERE k.id_pertanyaan=p.id and k.nilai < '7' and p.type = 'PENGAJAR' and k.id_guru != '0' and k.id_kelas ='" . $request->id_kelas . "'");
+    $getjumlahdataPengajar = DB::select("SELECT k.* FROM kuesioner k, pertanyaan p WHERE k.id_pertanyaan=p.id  and p.type = 'PENGAJAR' and k.id_guru != '0' and k.id_kelas ='" . $request->id_kelas . "' $sql");
+    $getPromotor = DB::select("SELECT k.* FROM kuesioner k, pertanyaan p WHERE k.id_pertanyaan=p.id and k.nilai >= '7' and p.type = 'PENGAJAR' and k.id_guru != '0' and k.id_kelas ='" . $request->id_kelas . "' $sql");
+    $getDektrator = DB::select("SELECT k.* FROM kuesioner k, pertanyaan p WHERE k.id_pertanyaan=p.id and k.nilai < '7' and p.type = 'PENGAJAR' and k.id_guru != '0' and k.id_kelas ='" . $request->id_kelas . "' $sql");
     $fixPromotor = (count($getPromotor) / count($getjumlahdataPengajar)) * 100;
     $fixDektrator = (count($getDektrator) / count($getjumlahdataPengajar)) * 100;
     $hasil = ($fixPromotor - $fixDektrator);
