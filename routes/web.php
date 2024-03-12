@@ -11,6 +11,8 @@ use App\Http\Controllers\authentications\RegisterBasic;
 use App\Http\Controllers\pages\JurusanController;
 use App\Http\Controllers\pages\KelasController;
 use App\Http\Controllers\pages\KuesionerController;
+use App\Http\Controllers\pages\LabController;
+use App\Http\Controllers\pages\PengajarController;
 use App\Http\Controllers\pages\PertanyaanController;
 use App\Http\Controllers\pages\SiswaController;
 
@@ -45,7 +47,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [HomePage::class, 'index'])->name('dashboard');
 
     Route::get('/kuesioner/{id}', [KuesionerController::class, 'index'])->name('kuesioner');
+    Route::get('/lab-list/{id}', [KuesionerController::class, 'lab'])->name('kuesioner.lab');
+    Route::get('/perpustakaan', [KuesionerController::class, 'perpustakaan'])->name('kuesioner.perpustakaan');
     Route::get('/list-kuesioner', [KuesionerController::class, 'listkuesioner'])->name('kuesioner.listkuesioner');
+    Route::get('/list-lab', [KuesionerController::class, 'listlab'])->name('kuesioner.listlab');
     Route::post('/kuesionerAdd', [KuesionerController::class, 'add'])->name('kuesioner.add');
     Route::post('/load_data', [KuesionerController::class, 'load_data'])->name('load_data.kuesioner');
     Route::get('/keusionerall', [KuesionerController::class, 'keusionerall'])->name('load_data.keusionerall');
@@ -76,4 +81,16 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/perhitunganpengajar', [HomePage::class, 'perhitunganpengajar'])->name('home.perhitunganpengajar');
     Route::get('/perhitunganLab', [HomePage::class, 'perhitunganLab'])->name('home.perhitunganLab');
     Route::get('/perhitunganperpus', [HomePage::class, 'perhitunganperpus'])->name('home.perhitunganperpus');
+
+    //lab
+    Route::get('/lab', [LabController::class, 'index'])->name('lab');
+    Route::post('/lab-add', [LabController::class, 'add'])->name('lab.add');
+    Route::post('/lab-edit', [LabController::class, 'edit'])->name('lab.edit');
+    Route::get('/lab/{id}', [LabController::class, 'delete'])->name('lab.delete');
+
+    //lab
+    Route::get('/pengajar', [PengajarController::class, 'index'])->name('pengajar');
+    Route::post('/pengajar-add', [PengajarController::class, 'add'])->name('pengajar.add');
+    Route::post('/pengajar-edit', [PengajarController::class, 'edit'])->name('pengajar.edit');
+    Route::get('/pengajar/{id}', [PengajarController::class, 'delete'])->name('pengajar.delete');
 });

@@ -25,6 +25,18 @@
       "slug": "Jurusan"
     },
     {
+      "url": "/lab",
+      "name": "Lab",
+      "icon": "menu-icon tf-icons mdi mdi-login",
+      "slug": "Lab"
+    },
+    {
+      "url": "/pengajar",
+      "name": "Pengajar",
+      "icon": "menu-icon tf-icons mdi mdi-login",
+      "slug": "Pengajar"
+    },
+    {
       "url": "/pertanyaan",
       "name": "Pertanyaan",
       "icon": "menu-icon tf-icons mdi mdi-account-outline",

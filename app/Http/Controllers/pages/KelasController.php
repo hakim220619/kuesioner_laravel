@@ -5,6 +5,7 @@ namespace App\Http\Controllers\pages;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class KelasController extends Controller
 {
@@ -18,7 +19,7 @@ class KelasController extends Controller
     function add(Request $request)
     {
         $data = [
-            'nama_kelas' => $request->nama_kelas,
+            'nama_kelas' => Str::upper($request->nama_kelas),
             'status' => 'ON',
             'created_at' => now(),
 
@@ -29,7 +30,7 @@ class KelasController extends Controller
     function edit(Request $request)
     {
         $data = [
-            'nama_kelas' => $request->nama_kelas,
+            'nama_kelas' => Str::upper($request->nama_kelas),
             'status' => $request->status,
             'updated_at' => now(),
 

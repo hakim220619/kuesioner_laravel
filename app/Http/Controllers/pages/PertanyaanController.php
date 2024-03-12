@@ -12,7 +12,9 @@ class PertanyaanController extends Controller
     {
         $data['pertanyaan'] = DB::table('pertanyaan')->get();
         $data['status'] = ['ON', 'OFF'];
-        $data['type'] = ['PENGAJAR', 'PERPUSTAKAAN', 'LABORATORIUM'];
+        $data['type'] = ['PENGAJAR', 'PERPUSTAKAAN'];
+        $data['lab'] = DB::table('lab')->get();
+
         // dd(count($data['guru']));
         return view('content.pertanyaan.index', $data);
     }

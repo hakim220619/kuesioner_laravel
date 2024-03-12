@@ -44,9 +44,9 @@ class HomePage extends Controller
 
     //Lab
 
-    $getjumlahdataLab = DB::select("SELECT k.* FROM kuesioner k, pertanyaan p WHERE k.id_pertanyaan=p.id  and p.type = 'LABORATORIUM' and k.id_guru = '0' and k.id_jurusan ='" . $request->id_jurusan . "'");
-    $getPromotorLab = DB::select("SELECT k.* FROM kuesioner k, pertanyaan p WHERE k.id_pertanyaan=p.id and k.nilai >= '7' and p.type = 'LABORATORIUM' and k.id_guru = '0' and k.id_jurusan ='" . $request->id_jurusan . "'");
-    $getDektratorLab = DB::select("SELECT k.* FROM kuesioner k, pertanyaan p WHERE k.id_pertanyaan=p.id and k.nilai < '7' and p.type = 'LABORATORIUM' and k.id_guru = '0' and k.id_jurusan ='" . $request->id_jurusan . "'");
+    $getjumlahdataLab = DB::select("SELECT k.* FROM kuesioner k, pertanyaan p WHERE k.id_pertanyaan=p.id  and p.type not in ('PENGAJAR', 'PERPUSTAKAAN') and k.id_guru = '0' and k.id_jurusan ='" . $request->id_jurusan . "'");
+    $getPromotorLab = DB::select("SELECT k.* FROM kuesioner k, pertanyaan p WHERE k.id_pertanyaan=p.id and k.nilai >= '7' and p.type not in ('PENGAJAR', 'PERPUSTAKAAN') and k.id_guru = '0' and k.id_jurusan ='" . $request->id_jurusan . "'");
+    $getDektratorLab = DB::select("SELECT k.* FROM kuesioner k, pertanyaan p WHERE k.id_pertanyaan=p.id and k.nilai < '7' and p.type not in ('PENGAJAR', 'PERPUSTAKAAN') and k.id_guru = '0' and k.id_jurusan ='" . $request->id_jurusan . "'");
     $fixPromotorLab = (count($getPromotorLab) / count($getjumlahdataLab)) * 100;
     $fixDektratorLab = (count($getDektratorLab) / count($getjumlahdataLab)) * 100;
     $hasil = ($fixPromotorLab - $fixDektratorLab);

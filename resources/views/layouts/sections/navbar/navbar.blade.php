@@ -17,7 +17,7 @@ $navbarDetached = ($navbarDetached ?? '');
       <div class="navbar-brand app-brand demo d-none d-xl-flex py-0 me-4">
         <a href="{{url('/')}}" class="app-brand-link gap-2">
         <span class="app-brand-logo demo">@include('_partials.macros',["width"=>25,"withbg"=>'var(--bs-primary)'])</span>
-        <span class="app-brand-text demo menu-text fw-bold">{{config('variables.templateName')}}</span>
+        <span class="app-brand-text demo menu-text fw-bold">Pelayanan SMKN 1 Bengkalis</span>
       </a>
       @if(isset($menuHorizontal))
         <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
@@ -73,7 +73,7 @@ $navbarDetached = ($navbarDetached ?? '');
         <li class="nav-item navbar-dropdown dropdown-user dropdown">
           <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
             <div class="avatar avatar-online">
-              <img src="{{ Auth::user() ? Auth::user()->profile_photo_url : asset('assets/img/avatars/1.png') }}" alt class="w-px-40 h-auto rounded-circle">
+              <img src="{{ asset('assets/img/avatars/1.png') }}" alt class="w-px-40 h-auto rounded-circle">
             </div>
           </a>
           <ul class="dropdown-menu dropdown-menu-end">
@@ -82,7 +82,7 @@ $navbarDetached = ($navbarDetached ?? '');
                 <div class="d-flex">
                   <div class="flex-shrink-0 me-3">
                     <div class="avatar avatar-online">
-                      <img src="{{ Auth::user() ? Auth::user()->profile_photo_url : asset('assets/img/avatars/1.png') }}" alt class="w-px-40 h-auto rounded-circle">
+                      <img src="{{ asset('assets/img/avatars/1.png') }}" alt class="w-px-40 h-auto rounded-circle">
                     </div>
                   </div>
                   <div class="flex-grow-1">
@@ -93,7 +93,7 @@ $navbarDetached = ($navbarDetached ?? '');
                       John Doe
                       @endif
                     </span>
-                    <small class="text-muted">Admin</small>
+                    <small class="text-muted"> @if(request()->user()->role == 1) Admin @elseif(request()->user()->role == 2) Siswa @else Guru @endif </small>
                   </div>
                 </div>
               </a>
@@ -101,26 +101,7 @@ $navbarDetached = ($navbarDetached ?? '');
             <li>
               <div class="dropdown-divider"></div>
             </li>
-            <li>
-              <a class="dropdown-item" href="{{ Route::has('profile.show') ? route('profile.show') : 'javascript:void(0);' }}">
-                <i class="mdi mdi-account-outline me-2"></i>
-                <span class="align-middle">My Profile</span>
-              </a>
-            </li>
-            @if (Auth::check() && Laravel\Jetstream\Jetstream::hasApiFeatures())
-            <li>
-              <a class="dropdown-item" href="{{ route('api-tokens.index') }}">
-                <i class='mdi mdi-key-outline me-2'></i>
-                <span class="align-middle">API Tokens</span>
-              </a>
-            </li>
-            @endif
-            <li>
-              <a class="dropdown-item" href="javascript:void(0);">
-                <i class="mdi mdi-credit-card-outline me-2"></i>
-                <span class="align-middle">Billing</span>
-              </a>
-            </li>
+           
             @if (Auth::User() && Laravel\Jetstream\Jetstream::hasTeamFeatures())
             <li>
               <div class="dropdown-divider"></div>

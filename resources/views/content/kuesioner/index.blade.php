@@ -1,7 +1,7 @@
 @extends('layouts/layoutMaster')
 
 @section('title', 'Tables - Basic Tables')
-
+@include('sweetalert::alert')
 @section('content')
     <h4 class="py-3 mb-4"><span class="text-muted fw-light">Kuesioner /</span> Form</h4>
 
@@ -124,12 +124,17 @@
     @if (count($guru) != 0)
         <div class="card-body">
             <div class="demo-inline-spacing">
-                <a href="/list-kuesioner" class="btn btn-primary">Back</a>
+                <button onclick="sendtolistlab()" class="btn btn-primary">Save</button>
             </div>
         </div>
     @endif
 
+  
     <script>
+        function sendtolistlab() {
+            alert('success');
+            window.location.href = '/list-kuesioner'
+        }
         function getValue(params1, params2) {
             const id_guru = $('#id_guru').val();
             const id_kelas = $('#id_kelas').val();
@@ -149,8 +154,13 @@
                 },
                 dataType: 'json',
                 success: function(data) {
-                    console.log(data);
+                    console.log('suc');
                     // $('#datatable').DataTable();
+                    // swal.fire("Done!", "Success", "success");
+                  
+//SweetAlert2 Toast
+// alert('success')
+
 
 
                 }
@@ -162,11 +172,7 @@
     <script>
         $(document).ready(function() {
             getchecked()
-
             function getchecked() {
-
-
-
                 $.ajax({
                     type: 'POST',
                     url: '{{ route('load_data.kuesioner') }}',
@@ -188,7 +194,7 @@
                                 .id_pertanyaan + '').setAttribute("checked", "checked")
                         }
                         // $('#datatable').DataTable();
-
+                        // swal.fire("Done!", "Success", "success");
 
                     }
                 });

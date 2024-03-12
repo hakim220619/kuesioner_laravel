@@ -3,20 +3,20 @@
 @section('title', 'Tables - Basic Tables')
 
 @section('content')
-    <h4 class="py-3 mb-4"><span class="text-muted fw-light">List /</span> Kuesioner Pengajar</h4>
+    <h4 class="py-3 mb-4"><span class="text-muted fw-light">List /</span> Kuesioner Lab</h4>
 
     <!-- Basic Bootstrap Table -->
     <div class="col-12">
         <div class="card mb-4">
             <div class="card-header">
-                <h5 class="card-header">Pengajar</h5>
+                <h5 class="card-header">Lab</h5>
                 <div class="table-responsive text-nowrap">
                     <table class="table">
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>Full Name</th>
-                                <th>Kelas</th>
+                                <th>Jurusan</th>
+                                <th>Lab</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -24,15 +24,15 @@
                             @php
                                 $no = 1;
                             @endphp
-                            @foreach ($guru as $a)
+                            @foreach ($lab as $a)
                                 <tr>
                                     <td>{{ $no++ }}</td>
-                                    <td>{{ $a->name }}</td>
-                                    <td>{{ $a->nama_kelas }}</td>
+                                    <td>{{ $a->nama_jurusan }}</td>
+                                    <td>{{ $a->nama_lab }}</td>
 
                                     <td>
 
-                                        <a class="dropdown-item" href="/kuesioner/{{ $a->id }}"><i
+                                        <a class="dropdown-item" href="/lab-list/{{ $a->nama_lab }}"><i
                                                 class="mdi mdi-pencil-outline btn btn-primary me-1">Kuesioner</i>
                                         </a>
 
@@ -82,69 +82,4 @@
         </div>
     </div>
     <br>
-    
-   
-
-
-    <script>
-        function getValue(params1, params2) {
-            const id_guru = $('#id_guru').val();
-            const id_kelas = $('#id_kelas').val();
-            const nilai = params1;
-            const id_pertanyaan = params2
-            console.log(params2);
-            $.ajax({
-                type: 'POST',
-                url: '{{ route('kuesioner.add') }}',
-                async: true,
-                data: {
-                    "_token": "{{ csrf_token() }}",
-                    id_guru: id_guru,
-                    id_kelas: id_kelas,
-                    nilai: nilai,
-                    id_pertanyaan: id_pertanyaan
-                },
-                dataType: 'json',
-                success: function(data) {
-                    console.log(data);
-                    // $('#datatable').DataTable();
-
-
-                }
-            });
-
-        }
-    </script>
-    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            getchecked()
-
-            function getchecked() {
-
-
-
-                $.ajax({
-                    type: 'GET',
-                    url: '{{ route('load_data.keusionerall') }}',
-                    async: true,
-
-                    dataType: 'json',
-                    success: function(data) {
-                        // console.log(data);
-                        var i;
-                        var no = 1;
-                        for (i = 0; i < data.length; i++) {
-                            console.log(data[i].id_pertanyaan);
-                            document.getElementById('inlineRadio' + data[i].nilai + '' + data[i]
-                                .id_pertanyaan + '').setAttribute("checked", "checked")
-                        }
-                        // $('#datatable').DataTable();
-                        alert('success')
-
-                    }
-                });
-            }
-        })
-    </script>
 @endsection

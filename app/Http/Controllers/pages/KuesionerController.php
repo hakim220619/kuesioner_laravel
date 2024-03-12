@@ -21,6 +21,24 @@ class KuesionerController extends Controller
         // dd($data['done']);
         return view('content.kuesioner.index', $data);
     }
+    public function lab($nama_pertanyaan)
+    {
+        // dd(count($data['guru']));
+        $data['laboratorium'] = DB::table('pertanyaan')->where('status', 'ON')->where('type', $nama_pertanyaan)->get();
+        // $data['done'] = DB::table('kuesioner')->where('id_guru', $id)->where('id_kelas', request()->user()->kelas_id)->get();
+        $data['id_kelas'] =  request()->user()->kelas_id;
+        // dd($nama_pertanyaan);
+        return view('content.kuesioner.lab', $data);
+    }
+    public function perpustakaan()
+    {
+        // dd(count($data['guru']));
+        $data['perpustakaan'] = DB::table('pertanyaan')->where('status', 'ON')->where('type', 'PERPUSTAKAAN')->get();
+        // $data['done'] = DB::table('kuesioner')->where('id_guru', $id)->where('id_kelas', request()->user()->kelas_id)->get();
+        $data['id_kelas'] =  request()->user()->kelas_id;
+        // dd($nama_pertanyaan);
+        return view('content.kuesioner.perpus', $data);
+    }
     public function listkuesioner()
     {
         $data['guru'] = DB::select("select u.*, k.nama_kelas from users u, kelas k where u.kelas_id=k.id and u.status = 'ON' and u.role = '3' and kelas_id = " . request()->user()->kelas_id . "");
@@ -29,6 +47,13 @@ class KuesionerController extends Controller
         $data['laboratorium'] = DB::table('pertanyaan')->where('status', 'ON')->where('type', 'LABORATORIUM')->get();
 
         return view('content.kuesioner.listkuesioner', $data);
+    }
+    public function listlab()
+    {
+        $data['lab'] = DB::select("select l.*, j.nama_jurusan from lab l, jurusan j where l.id_jurusan=j.id and j.id = " . request()->user()->jurusan_id . "");
+        // dd($data);
+
+        return view('content.kuesioner.listlab', $data);
     }
     function add(Request $request)
     {

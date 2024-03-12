@@ -3,26 +3,27 @@
 @section('title', 'Tables - Basic Tables')
 
 @section('content')
-    <h4 class="py-3 mb-4"><span class="text-muted fw-light">List /</span> Pertanyaan</h4>
+
+    <h4 class="py-3 mb-4"><span class="text-muted fw-light">List /</span> Pengajar</h4>
 
     <!-- Basic Bootstrap Table -->
     <div class="col-12">
         <div class="card mb-4">
             <div class="card-header"><button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                    data-bs-target="#addModalPertanyaan">
+                    data-bs-target="#addModalSiswa">
                     Add
                 </button></div>
             <div class="card-body">
                 {{-- <h5 class="card-header">Table Basic</h5> --}}
                 <div class="table-responsive text-nowrap">
-                    <table class="table">
+                    <table class="table" id="myTable">
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>Pertanyaan</th>
-                                <th>Status</th>
-                                <th>type</th>
-                                <th>Create</th>
+                                <th>Full Name</th>
+                                <th>Email</th>
+                                <th>Kelas</th>
+                                <th>Jurusan</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -30,13 +31,13 @@
                             @php
                                 $no = 1;
                             @endphp
-                            @foreach ($pertanyaan as $a)
+                            @foreach ($pengajar as $a)
                                 <tr>
                                     <td>{{ $no++ }}</td>
-                                    <td>{{ $a->nama_pertanyaan }}</td>
-                                    <td>{{ $a->status }}</td>
-                                    <td>{{ $a->type }}</td>
-                                    <td>{{ $a->created_at }}</td>
+                                    <td>{{ $a->name }}</td>
+                                    <td>{{ $a->email }}</td>
+                                    <td>{{ $a->nama_kelas }}</td>
+                                    <td>{{ $a->nama_jurusan }}</td>
 
                                     {{-- <td>
 
@@ -75,10 +76,10 @@
                                                 data-bs-toggle="dropdown"><i class="mdi mdi-dots-vertical"></i></button>
                                             <div class="dropdown-menu">
                                                 <button class="dropdown-item" data-bs-toggle="modal"
-                                                    data-bs-target="#EditPertanyaan{{ $a->id }}"><i
+                                                    data-bs-target="#EditSiswa{{ $a->id }}"><i
                                                         class="mdi mdi-pencil-outline me-1"></i>
                                                     Edit</button>
-                                                <a class="dropdown-item" href="/pertanyaan/{{ $a->id }}"><i
+                                                <a class="dropdown-item" href="/pengajar/{{ $a->id }}"><i
                                                         class="mdi mdi-trash-can-outline me-1"></i> Delete</a>
                                             </div>
                                         </div>
@@ -87,25 +88,56 @@
 
 
                                 <!-- Modal -->
-                                <div class="modal fade" id="EditPertanyaan{{ $a->id }}" tabindex="-1"
-                                    aria-hidden="true">
+                                <div class="modal fade" id="EditSiswa{{ $a->id }}" tabindex="-1" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h4 class="modal-title" id="modalCenterTitle">Edit Pertanyaan</h4>
+                                                <h4 class="modal-title" id="modalCenterTitle">Edit Pengajar</h4>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                     aria-label="Close"></button>
                                             </div>
                                             <form id="formAuthentication" class="mb-3" method="POST"
-                                                action="{{ route('pertanyaan.edit') }}">
+                                                action="{{ route('pengajar.edit') }}">
                                                 @csrf
                                                 <div class="modal-body">
                                                     <div class="row">
                                                         <input type="hidden" name="id" value="{{ $a->id }}">
                                                         <div class="col mb-4 mt-2">
                                                             <div class="form-floating form-floating-outline">
-                                                                <textarea class="form-control" id="contentEdit" placeholder="Enter the Description" rows="10" cols="30"
-                                                                    name="nama_pertanyaan">{{ $a->nama_pertanyaan }}</textarea>
+                                                                <input type="text" id="nameWithTitle"
+                                                                    class="form-control" name="name"
+                                                                    value="{{ $a->name }}" placeholder="Enter Name">
+                                                                <label for="nameWithTitle">Name</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row g-2">
+                                                        <div class="col mb-4">
+                                                            <div class="form-floating form-floating-outline">
+                                                                <input type="email" id="emailWithTitle"
+                                                                    class="form-control" name="email"
+                                                                    value="{{ $a->email }}" placeholder="xxxx@xxx.xx">
+                                                                <label for="emailWithTitle">Email</label>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="row g-2">
+                                                        <div class="col mb-4">
+                                                            <div class="form-floating form-floating-outline">
+                                                                <select id="select2Basic"
+                                                                    class="select2 form-select form-select-lg"
+                                                                    data-allow-clear="true" name="kelas_id">
+                                                                    <option value="" selected>-- Pilih --</option>
+                                                                    @foreach ($kelas as $k)
+                                                                        <option value="{{ $k->id }}"
+                                                                            {{ $k->id == $a->kelas_id ? 'selected' : '' }}>
+                                                                            {{ $k->nama_kelas }}
+                                                                        </option>
+                                                                    @endforeach
+
+                                                                </select>
+                                                                <label for="select2Basic">Kelas</label>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -114,39 +146,20 @@
                                                             <div class="form-floating form-floating-outline">
                                                                 <select id="select2Basic"
                                                                     class="select2 form-select form-select-lg"
-                                                                    data-allow-clear="true" name="type">
+                                                                    data-allow-clear="true" name="jurusan_id">
                                                                     <option value="" selected>-- Pilih --</option>
-                                                                    @foreach ($type as $k)
-                                                                        <option value="{{ $k }}">
-                                                                            {{ $k }}
+                                                                    @foreach ($jurusan as $k)
+                                                                        <option value="{{ $k->id }}"
+                                                                            {{ $k->id == $a->jurusan_id ? 'selected' : '' }}>
+                                                                            {{ $k->nama_jurusan }}
                                                                         </option>
                                                                     @endforeach
 
                                                                 </select>
-                                                                <label for="select2Basic">Type</label>
+                                                                <label for="select2Basic">Jurusan</label>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="row g-2">
-                                                        <div class="col mb-4">
-                                                            <div class="form-floating form-floating-outline">
-                                                                <select id="select2Basic"
-                                                                    class="select2 form-select form-select-lg"
-                                                                    data-allow-clear="true" name="status">
-                                                                    <option value="" selected>-- Pilih --</option>
-                                                                    @foreach ($status as $k)
-                                                                        <option value="{{ $k }}"
-                                                                            {{ $k == $a->status ? 'selected' : '' }}>
-                                                                            {{ $k }}
-                                                                        </option>
-                                                                    @endforeach
-
-                                                                </select>
-                                                                <label for="select2Basic">Status</label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-outline-secondary"
@@ -168,23 +181,60 @@
 
 
     <!-- Modal -->
-    <div class="modal fade" id="addModalPertanyaan" tabindex="-1" aria-hidden="true">
+    <div class="modal fade" id="addModalSiswa" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title" id="addModalPertanyaanTitle">Add Pertanyaan</h4>
+                    <h4 class="modal-title" id="addModalSiswaTitle">Add Pengajar</h4>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form id="formAuthentication" class="mb-3" method="POST" action="{{ route('pertanyaan.add') }}">
+                <form id="formAuthentication" class="mb-3" method="POST" action="{{ route('pengajar.add') }}">
                     @csrf
                     <div class="modal-body">
                         <div class="row">
 
                             <div class="col mb-4 mt-2">
                                 <div class="form-floating form-floating-outline">
-                                    <textarea class="form-control" id="content" placeholder="Enter the Description" rows="10" cols="30"
-                                        name="nama_pertanyaan"></textarea>
+                                    <input type="text" id="nameWithTitle" class="form-control" name="name"
+                                        placeholder="Enter Name">
+                                    <label for="nameWithTitle">Name</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row g-2">
+                            <div class="col mb-4">
+                                <div class="form-floating form-floating-outline">
+                                    <input type="email" id="emailWithTitle" class="form-control" name="email"
+                                        placeholder="xxxx@xxx.xx">
+                                    <label for="emailWithTitle">Email</label>
+                                </div>
+                            </div>
 
+                        </div>
+                        <div class="row g-2">
+                            <div class="col mb-4">
+                                <div class="form-floating form-floating-outline">
+                                    <input type="password" class="form-control" id="password" name="password"
+                                        placeholder="Masukan Password" required />
+                                    <label for="emailWithTitle">Password</label>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row g-2">
+                            <div class="col mb-4">
+                                <div class="form-floating form-floating-outline">
+                                    <select id="select2Basic" class="select2 form-select form-select-lg"
+                                        data-allow-clear="true" name="kelas_id">
+                                        <option value="" selected>-- Pilih --</option>
+                                        @foreach ($kelas as $k)
+                                            <option value="{{ $k->id }}">
+                                                {{ $k->nama_kelas }}
+                                            </option>
+                                        @endforeach
+
+                                    </select>
+                                    <label for="select2Basic">Kelas</label>
                                 </div>
                             </div>
                         </div>
@@ -192,26 +242,19 @@
                             <div class="col mb-4">
                                 <div class="form-floating form-floating-outline">
                                     <select id="select2Basic" class="select2 form-select form-select-lg"
-                                        data-allow-clear="true" name="type">
+                                        data-allow-clear="true" name="jurusan_id">
                                         <option value="" selected>-- Pilih --</option>
-                                        @foreach ($type as $k)
-                                            <option value="{{ $k }}">
-                                                {{ $k }}
-                                            </option>
-                                        @endforeach
-                                        @foreach ($lab as $k)
-                                            <option value="{{ $k->nama_lab }}">
-                                                {{ $k->nama_lab }}
+                                        @foreach ($jurusan as $k)
+                                            <option value="{{ $k->id }}">
+                                                {{ $k->nama_jurusan }}
                                             </option>
                                         @endforeach
 
                                     </select>
-                                    <label for="select2Basic">Type</label>
+                                    <label for="select2Basic">Jurusan</label>
                                 </div>
                             </div>
                         </div>
-
-
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
@@ -222,15 +265,4 @@
         </div>
     </div>
 
-    <script src="https://cdn.ckeditor.com/ckeditor5/35.4.0/classic/ckeditor.js"></script>
-    <script>
-        ClassicEditor.create(document.querySelector('#content'))
-            .catch(error => {
-                console.error(error);
-            });
-        ClassicEditor.create(document.querySelector('#contentEdit'))
-            .catch(error => {
-                console.error(error);
-            });
-    </script>
 @endsection
