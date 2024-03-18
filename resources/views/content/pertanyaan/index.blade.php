@@ -117,8 +117,15 @@
                                                                     data-allow-clear="true" name="type">
                                                                     <option value="" selected>-- Pilih --</option>
                                                                     @foreach ($type as $k)
-                                                                        <option value="{{ $k }}">
+                                                                        <option value="{{ $k }}"
+                                                                            {{ $k == $a->type ? 'selected' : '' }}>
                                                                             {{ $k }}
+                                                                        </option>
+                                                                    @endforeach
+                                                                    @foreach ($lab as $k)
+                                                                        <option value="{{ $k->nama_lab }}"
+                                                                            {{ $k->nama_lab == $a->type ? 'selected' : '' }}>
+                                                                            {{ $k->nama_lab }}
                                                                         </option>
                                                                     @endforeach
 

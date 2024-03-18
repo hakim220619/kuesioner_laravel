@@ -9,6 +9,33 @@
 @section('content')
     @if (request()->user()->role == 1)
         <div class="col-12">
+            <div class="card">
+                <!-- Pricing Plans -->
+                <div class="pb-sm-5 pb-2 rounded-top">
+                    <div class="container py-5">
+
+                        <h2 class="text-center mb-2 mt-0 mt-md-4"><img src="{{ asset('') }}storage/logo.png" alt="asd"
+                                style="width: 20px; height: 200px; width: 200px;"></h2>
+                        <h2 class="text-center mb-2 mt-0 mt-md-4">SMKN 1 BENGKALIS</h2>
+
+
+                        <div class="pricing-plans row mx-0 gy-3 px-lg-5">
+                            <!-- Basic -->
+
+
+                            <!-- Standard -->
+
+
+                            <!-- Enterprise -->
+
+                        </div>
+                    </div>
+                </div>
+                <!--/ Pricing Plans -->
+            </div>
+        </div>
+        <br>
+        <div class="col-12">
             <div class="card mb-4">
                 <div class="card-header">
                     <div class="row g-2">
@@ -32,14 +59,14 @@
                                 <select id="id_jurusan" class="select2 form-select form-select-lg" data-allow-clear="true"
                                     name="id_jurusan" onclick="getValuejurusan()">
                                     <option value="all" selected>-- All --</option>
-                                    @foreach ($jurusan as $k)
-                                        <option value="{{ $k->id }}">
-                                            {{ $k->nama_jurusan }}
+                                    @foreach ($lab as $k)
+                                        <option value="{{ $k->id_jurusan }}">
+                                            {{ $k->nama_lab }}
                                         </option>
                                     @endforeach
 
                                 </select>
-                                <label for="select2Basic">Kelas</label>
+                                <label for="select2Basic">Lab</label>
                             </div>
                         </div>
                     </div>
@@ -141,15 +168,15 @@
                 <!-- Pricing Plans -->
                 <div class="pb-sm-5 pb-2 rounded-top">
                     <div class="container py-5">
-                        
-                        <h2 class="text-center mb-2 mt-0 mt-md-4"><img src="{{ asset('') }}storage/logo.png" alt="asd"
-                            style="width: 20px; height: 200px; width: 200px;"></h2>
+
+                        <h2 class="text-center mb-2 mt-0 mt-md-4"><img src="{{ asset('') }}storage/logo.png"
+                                alt="asd" style="width: 20px; height: 200px; width: 200px;"></h2>
                         <h2 class="text-center mb-2 mt-0 mt-md-4">SMKN 1 BENGKALIS</h2>
-                        
+
 
                         <div class="pricing-plans row mx-0 gy-3 px-lg-5">
                             <!-- Basic -->
-                            
+
 
                             <!-- Standard -->
                             <div class="col-lg mb-md-0 mb-4">
@@ -163,8 +190,8 @@
                                         </div>
                                         <h3 class="card-title text-center text-capitalize mb-1">Pengajar</h3>
                                         {{-- <p class="text-center">For small to medium businesses</p> --}}
-                                        
-<br>
+
+                                        <br>
                                         <a href="{{ url('/list-kuesioner') }}"
                                             class="btn btn-primary d-grid w-100">Kuesioner</a>
                                     </div>
@@ -181,10 +208,9 @@
                                         </div>
                                         <h3 class="card-title text-center text-capitalize mb-1">Laboratorium</h3>
                                         {{-- <p class="text-center">For small to medium businesses</p> --}}
-                                        
-<br>
-                                        <a href="{{ url('list-lab') }}"
-                                            class="btn btn-primary d-grid w-100">Kuesioner</a>
+
+                                        <br>
+                                        <a href="{{ url('list-lab') }}" class="btn btn-primary d-grid w-100">Kuesioner</a>
                                     </div>
                                 </div>
                             </div>
@@ -199,8 +225,8 @@
                                         </div>
                                         <h3 class="card-title text-center text-capitalize mb-1">Perpustakaan</h3>
                                         {{-- <p class="text-center">For small to medium businesses</p> --}}
-                                        
-<br>
+
+                                        <br>
                                         <a href="{{ url('perpustakaan') }}"
                                             class="btn btn-primary d-grid w-100">Kuesioner</a>
                                     </div>
@@ -208,7 +234,7 @@
                             </div>
 
                             <!-- Enterprise -->
-                            
+
                         </div>
                     </div>
                 </div>
@@ -260,7 +286,7 @@
                 },
                 dataType: 'json',
                 success: function(data) {
-                    console.log(data);
+                    // console.log(data.dektrator.toString().substr(1, 2));
                     $('#promotorlab').text(data.promotor);
                     $('#jumlahlab').text(data.jumlah);
                     $('#jumlahdeklab').text(data.jumlah);

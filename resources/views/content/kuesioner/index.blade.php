@@ -124,17 +124,18 @@
     @if (count($guru) != 0)
         <div class="card-body">
             <div class="demo-inline-spacing">
-                <button onclick="sendtolistlab()" class="btn btn-primary">Save</button>
+                <button onclick="sendtolistlab()" class="btn btn-primary" disabled>Save</button>
             </div>
         </div>
     @endif
 
-  
+
     <script>
         function sendtolistlab() {
             alert('success');
             window.location.href = '/list-kuesioner'
         }
+
         function getValue(params1, params2) {
             const id_guru = $('#id_guru').val();
             const id_kelas = $('#id_kelas').val();
@@ -157,9 +158,9 @@
                     console.log('suc');
                     // $('#datatable').DataTable();
                     // swal.fire("Done!", "Success", "success");
-                  
-//SweetAlert2 Toast
-// alert('success')
+
+                    //SweetAlert2 Toast
+                    // alert('success')
 
 
 
@@ -172,6 +173,7 @@
     <script>
         $(document).ready(function() {
             getchecked()
+
             function getchecked() {
                 $.ajax({
                     type: 'POST',

@@ -11,7 +11,7 @@ class HomePage extends Controller
   public function index()
   {
     $data['kelas'] = DB::table('kelas')->get();
-    $data['jurusan'] = DB::table('jurusan')->get();
+    $data['lab'] = DB::table('lab')->get();
     return view('content.pages.pages-home', $data);
   }
   function perhitunganpengajar(Request $request)
@@ -33,9 +33,9 @@ class HomePage extends Controller
       'success' => true,
       'promotor' => count($getPromotor),
       'dektrator' => count($getDektrator),
-      'hasilPromotor' => $fixPromotor,
-      'hasilDektrator' => $fixDektrator,
-      'hasil' => $hasil,
+      'hasilPromotor' => explode('.', $fixPromotor)[0],
+      'hasilDektrator' => explode('.', $fixDektrator)[0],
+      'hasil' => explode('.', $hasil)[0],
       'jumlah' => count($getjumlahdataPengajar)
     ]);
   }
@@ -50,13 +50,14 @@ class HomePage extends Controller
     $fixPromotorLab = (count($getPromotorLab) / count($getjumlahdataLab)) * 100;
     $fixDektratorLab = (count($getDektratorLab) / count($getjumlahdataLab)) * 100;
     $hasil = ($fixPromotorLab - $fixDektratorLab);
+    // dd(explode('.', $hasil)[0]);
     return response()->json([
       'success' => true,
       'promotor' => count($getPromotorLab),
       'dektrator' => count($getDektratorLab),
-      'hasilPromotor' => $fixPromotorLab,
-      'hasilDektrator' => $fixDektratorLab,
-      'hasil' => $hasil,
+      'hasilPromotor' => explode('.', $fixPromotorLab)[0],
+      'hasilDektrator' => explode('.', $fixDektratorLab)[0],
+      'hasil' => explode('.', $hasil)[0],
       'jumlah' => count($getjumlahdataLab)
     ]);
   }
@@ -73,9 +74,9 @@ class HomePage extends Controller
       'success' => true,
       'promotor' => count($getPromotorPerpus),
       'dektrator' => count($getDektratorPerpus),
-      'hasilPromotor' => $fixPromotorPerpus,
-      'hasilDektrator' => $fixDektratorPerpus,
-      'hasil' => $hasil,
+      'hasilPromotor' => explode('.', $fixPromotorPerpus)[0],
+      'hasilDektrator' => explode('.', $fixDektratorPerpus)[0],
+      'hasil' => explode('.', $hasil)[0],
       'jumlah' => count($getjumlahdataPerpus)
     ]);
   }

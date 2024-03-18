@@ -23,6 +23,7 @@
                                 <th>Full Name</th>
                                 <th>Email</th>
                                 <th>Kelas</th>
+                                <th>Jurusan</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -36,6 +37,7 @@
                                     <td>{{ $a->name }}</td>
                                     <td>{{ $a->email }}</td>
                                     <td>{{ $a->nama_kelas }}</td>
+                                    <td>{{ $a->nama_jurusan }}</td>
 
                                     {{-- <td>
 
