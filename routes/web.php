@@ -93,4 +93,8 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/pengajar-add', [PengajarController::class, 'add'])->name('pengajar.add');
     Route::post('/pengajar-edit', [PengajarController::class, 'edit'])->name('pengajar.edit');
     Route::get('/pengajar/{id}', [PengajarController::class, 'delete'])->name('pengajar.delete');
+
+    //hasil
+    Route::get('/hasil', [HomePage::class, 'hasil'])->name('hasil');
+
 });

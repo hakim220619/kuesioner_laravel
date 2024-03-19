@@ -140,7 +140,7 @@
                                 .id_pertanyaan + '').setAttribute("checked", "checked")
                         }
                         // $('#datatable').DataTable();
-                        alert('success')
+                        // alert('success')
 
                     }
                 });

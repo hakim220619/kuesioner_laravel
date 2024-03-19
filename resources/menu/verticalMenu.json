@@ -7,6 +7,12 @@
       "slug": "pages-home"
     },
     {
+      "url": "/hasil",
+      "name": "HASIL NPS",
+      "icon": "menu-icon tf-icons mdi mdi-home-outline",
+      "slug": "HASIL-NPS"
+    },
+    {
       "url": "/siswa",
       "icon": "menu-icon tf-icons mdi mdi-file-document-outline",
       "name": "Siswa",

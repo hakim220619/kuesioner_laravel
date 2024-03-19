@@ -124,7 +124,7 @@
     @if (count($guru) != 0)
         <div class="card-body">
             <div class="demo-inline-spacing">
-                <button onclick="sendtolistlab()" class="btn btn-primary" disabled>Save</button>
+                <button onclick="sendtolistlab()" class="btn btn-primary">Save</button>
             </div>
         </div>
     @endif
