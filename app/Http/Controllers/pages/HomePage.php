@@ -21,6 +21,20 @@ class HomePage extends Controller
     $data['guru'] = DB::table('users')->where('role', 3)->get();
     return view('content.hasil.index', $data);
   }
+  function getGuru($id)
+  {
+    $query = DB::table('users')->where('kelas_id', $id)->get();
+    $data = "<option value='all'>- Select Guru -</option>";
+    foreach ($query as $value) {
+      $data .= "<option value='" . $value->id . "'>" . $value->name . "</option>";
+    }
+    // dd($query);
+    return response()->json([
+      'success' => false,
+      'data' => $data
+    ]);
+  }
+
   function perhitunganpengajar(Request $request)
   {
     try {

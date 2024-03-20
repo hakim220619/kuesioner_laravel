@@ -96,5 +96,6 @@ Route::middleware(['auth'])->group(function () {
 
     //hasil
     Route::get('/hasil', [HomePage::class, 'hasil'])->name('hasil');
+    Route::get('/getGuru/{id}', [HomePage::class, 'getGuru'])->name('getGuru');
 
 });

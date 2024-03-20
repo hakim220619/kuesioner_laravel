@@ -29,31 +29,13 @@
                             <label for="select2Basic">Kelas</label>
                         </div>
                     </div>
-                    <div class="col col-md-3 mb-4">
-                        <div class="form-floating form-floating-outline">
-                            <select id="id_jurusan" class="select2 form-select form-select-lg" data-allow-clear="true"
-                                name="id_jurusan" onchange="getValuejurusan()">
-                                <option value="all" selected>-- All --</option>
-                                @foreach ($lab as $k)
-                                    <option value="{{ $k->id_jurusan }}">
-                                        {{ $k->nama_lab }}
-                                    </option>
-                                @endforeach
 
-                            </select>
-                            <label for="select2Basic">Lab</label>
-                        </div>
-                    </div>
                     <div class="col col-md-3 mb-4">
                         <div class="form-floating form-floating-outline">
                             <select id="id_guru" class="select2 form-select form-select-lg" data-allow-clear="true"
                                 name="id_guru" onchange="getValueguru()">
                                 <option value="all" selected>-- All --</option>
-                                @foreach ($guru as $k)
-                                    <option value="{{ $k->id }}">
-                                        {{ $k->name }}
-                                    </option>
-                                @endforeach
+
 
                             </select>
                             <label for="select2Basic">Guru</label>
@@ -91,6 +73,21 @@
 
                         </div>
 
+                    </div>
+                    <div class="col col-md-3 mb-4">
+                        <div class="form-floating form-floating-outline">
+                            <select id="id_jurusan" class="select2 form-select form-select-lg" data-allow-clear="true"
+                                name="id_jurusan" onchange="getValuejurusan()">
+                                <option value="all" selected>-- All --</option>
+                                @foreach ($lab as $k)
+                                    <option value="{{ $k->id_jurusan }}">
+                                        {{ $k->nama_lab }}
+                                    </option>
+                                @endforeach
+
+                            </select>
+                            <label for="select2Basic">Lab</label>
+                        </div>
                     </div>
                     <div class="col-md-12">
                         <div class="row">
@@ -154,7 +151,28 @@
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
     <script>
+        $(document).ready(function() {
+            $("#id_kelas").change(function() {
+
+                console.log($(this).val());
+                $.ajax({
+                    type: 'GET',
+                    url: '{{ url('getGuru') }}/' + $(this).val(),
+                    async: true,
+                    dataType: 'json',
+                    success: function(url) {
+                        // console.log(url.data);
+                        $('#id_guru').html(url.data);
+
+
+                    }
+                });
+                // console.log(url);
+            })
+        });
+
         function getValuekelas() {
             const id_kelas = $('#id_kelas').val();
             const id_jurusan = $('#id_jurusan').val();
@@ -191,7 +209,6 @@
 
                 }
             });
-
         }
 
         function getValueguru() {
