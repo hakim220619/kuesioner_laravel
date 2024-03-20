@@ -23,7 +23,7 @@ class HomePage extends Controller
   }
   function getGuru($id)
   {
-    $query = DB::table('users')->where('kelas_id', $id)->get();
+    $query = DB::table('users')->where('kelas_id', $id)->where('role', 3)->get();
     $data = "<option value='all'>- Select Guru -</option>";
     foreach ($query as $value) {
       $data .= "<option value='" . $value->id . "'>" . $value->name . "</option>";
