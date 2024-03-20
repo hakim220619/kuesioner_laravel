@@ -35,7 +35,7 @@ class HomePage extends Controller
         $sql .= "and k.id_kelas = " . $request->id_kelas . " ";
       }
       //Pengajar
-      $getjumlahdataPengajar = DB::select("SELECT k.* FROM kuesioner k, pertanyaan p WHERE k.id_pertanyaan=p.id  and p.type = 'PENGAJAR'  $sql");
+      $getjumlahdataPengajar = DB::select("SELECT k.* FROM kuesioner k, pertanyaan p WHERE k.id_pertanyaan=p.id  and p.type = 'PENGAJAR'  $sql group by k.id_siswa");
       $getPromotor = DB::select("SELECT k.* FROM kuesioner k, pertanyaan p WHERE k.id_pertanyaan=p.id and k.nilai >= '7' and p.type = 'PENGAJAR'  $sql");
       $getDektrator = DB::select("SELECT k.* FROM kuesioner k, pertanyaan p WHERE k.id_pertanyaan=p.id and k.nilai < '7' and p.type = 'PENGAJAR'  $sql");
 
@@ -61,7 +61,7 @@ class HomePage extends Controller
   function perhitunganLab(Request $request)
   {
     try {
-      $getjumlahdataLab = DB::select("SELECT k.* FROM kuesioner k, pertanyaan p WHERE k.id_pertanyaan=p.id  and p.type not in ('PENGAJAR', 'PERPUSTAKAAN') and k.id_guru = '0' and k.id_jurusan ='" . $request->id_jurusan . "'");
+      $getjumlahdataLab = DB::select("SELECT k.* FROM kuesioner k, pertanyaan p WHERE k.id_pertanyaan=p.id  and p.type not in ('PENGAJAR', 'PERPUSTAKAAN') and k.id_guru = '0' and k.id_jurusan ='" . $request->id_jurusan . "' group by k.id_siswa");
       $getPromotorLab = DB::select("SELECT k.* FROM kuesioner k, pertanyaan p WHERE k.id_pertanyaan=p.id and k.nilai >= '7' and p.type not in ('PENGAJAR', 'PERPUSTAKAAN') and k.id_guru = '0' and k.id_jurusan ='" . $request->id_jurusan . "'");
       $getDektratorLab = DB::select("SELECT k.* FROM kuesioner k, pertanyaan p WHERE k.id_pertanyaan=p.id and k.nilai < '7' and p.type not in ('PENGAJAR', 'PERPUSTAKAAN') and k.id_guru = '0' and k.id_jurusan ='" . $request->id_jurusan . "'");
       $fixPromotorLab = (count($getPromotorLab) / count($getjumlahdataLab)) * 100;
@@ -89,7 +89,7 @@ class HomePage extends Controller
     try {
       //code...
 
-      $getjumlahdataPerpus = DB::select("SELECT k.* FROM kuesioner k, pertanyaan p WHERE k.id_pertanyaan=p.id  and p.type = 'PERPUSTAKAAN' and k.id_guru = '0'");
+      $getjumlahdataPerpus = DB::select("SELECT k.* FROM kuesioner k, pertanyaan p WHERE k.id_pertanyaan=p.id  and p.type = 'PERPUSTAKAAN' and k.id_guru = '0' group by k.id_siswa");
       $getPromotorPerpus = DB::select("SELECT k.* FROM kuesioner k, pertanyaan p WHERE k.id_pertanyaan=p.id and k.nilai >= '7' and p.type = 'PERPUSTAKAAN' and k.id_guru = '0'");
       $getDektratorPerpus = DB::select("SELECT k.* FROM kuesioner k, pertanyaan p WHERE k.id_pertanyaan=p.id and k.nilai < '7' and p.type = 'PERPUSTAKAAN' and k.id_guru = '0'");
       $fixPromotorPerpus = (count($getPromotorPerpus) / count($getjumlahdataPerpus)) * 100;
