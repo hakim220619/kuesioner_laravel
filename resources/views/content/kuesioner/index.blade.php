@@ -24,6 +24,7 @@
 
                             <th>No</th>
                             <th>Pertanyaan</th>
+                            <th>0</th>
                             <th>1</th>
                             <th>2</th>
                             <th>3</th>
@@ -32,6 +33,8 @@
                             <th>6</th>
                             <th>7</th>
                             <th>8</th>
+                            <th>9</th>
+                            <th>10</th>
                         </tr>
                     </thead>
                     <tbody class="table-border-bottom-0">
@@ -45,6 +48,14 @@
                             <tr>
                                 <td>{{ $no++ }}</td>
                                 <td>{!! $a->nama_pertanyaan !!}</td>
+                                <td>
+                                    <div class="form-check form-check-inline mt-3">
+                                        <input class="form-check-input" type="radio" name="{{ $a->id }}"
+                                            id="inlineRadio0{{ $a->id }}"
+                                            onclick="return getValue(this.value, this.name)" value="0"
+                                            style="accent-color: #e74c3c;" />
+                                    </div>
+                                </td>
                                 <td>
                                     <div class="form-check form-check-inline mt-3">
                                         <input class="form-check-input" type="radio" name="{{ $a->id }}"
@@ -109,7 +120,22 @@
 
                                     </div>
                                 </td>
+                                <td>
+                                    <div class="form-check form-check-inline mt-3">
+                                        <input class="form-check-input" type="radio" name="{{ $a->id }}"
+                                            id="inlineRadio9{{ $a->id }}"
+                                            onclick="return getValue(this.value, this.name)" value="9" />
 
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-check form-check-inline mt-3">
+                                        <input class="form-check-input" type="radio" name="{{ $a->id }}"
+                                            id="inlineRadio10{{ $a->id }}"
+                                            onclick="return getValue(this.value, this.name)" value="10" />
+
+                                    </div>
+                                </td>
                             </tr>
                         @endforeach
                     </tbody>
