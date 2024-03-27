@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
+use function PHPSTORM_META\type;
+
 class HomePage extends Controller
 {
   public function index()
@@ -55,8 +57,18 @@ class HomePage extends Controller
         $haslDekt = 0;
         //Pengajar
         $getjumlahdataPengajar = DB::select("SELECT k.* FROM kuesioner k, pertanyaan p WHERE k.id_pertanyaan=p.id  and p.type = 'PENGAJAR'  $sql group by k.id_siswa");
-        $getPromotor = DB::select("SELECT k.*, COUNT(IF( k.nilai >= 9, 'prom', null)) AS prom, COUNT(IF( k.nilai <= 6, 'dekt', null)) AS dekt, IF(COUNT(IF( k.nilai >= 9, 'prom', null)) > COUNT(IF( k.nilai <= 6, 'dekt', null)), 'prom', 'dkt') as initial  FROM kuesioner k, pertanyaan p WHERE k.id_pertanyaan=p.id  and p.type = 'PENGAJAR' $sql GROUP BY k.id_siswa");
-        $getDektrator = DB::select("SELECT k.*, COUNT(IF( k.nilai >= 9, 'prom', null)) AS prom, COUNT(IF( k.nilai <= 6, 'dekt', null)) AS dekt, IF(COUNT(IF( k.nilai >= 9, 'prom', null)) > COUNT(IF( k.nilai <= 6, 'dekt', null)), 'prom', 'dkt') as initial  FROM kuesioner k, pertanyaan p WHERE k.id_pertanyaan=p.id  and p.type = 'PENGAJAR' $sql GROUP BY k.id_siswa");
+        $getPromotor = DB::select("SELECT k.*, SUM(k.nilai) as jml_nilai, 
+CASE
+    WHEN SUM(k.nilai) >= 90 THEN 'prom'
+    WHEN SUM(k.nilai) < 70 THEN 'dkt'
+    ELSE 'passive'
+END  initial  FROM kuesioner k, pertanyaan p WHERE k.id_pertanyaan=p.id  and p.type = 'PENGAJAR' $sql GROUP BY k.id_siswa");
+        $getDektrator = DB::select("SELECT k.*, SUM(k.nilai) as jml_nilai, 
+CASE
+    WHEN SUM(k.nilai) >= 90 THEN 'prom'
+    WHEN SUM(k.nilai) < 70 THEN 'dkt'
+    ELSE 'passive'
+END  initial  FROM kuesioner k, pertanyaan p WHERE k.id_pertanyaan=p.id  and p.type = 'PENGAJAR' $sql GROUP BY k.id_siswa");
         foreach ($getPromotor as $key => $a) {
           
           if ($a->initial == 'prom') {
@@ -70,16 +82,17 @@ class HomePage extends Controller
           }
         }
         
-        $fixPromotor = ($haslProm / count($getjumlahdataPengajar)) * 1;
-        $fixDektrator = ($haslDekt / count($getjumlahdataPengajar)) * 1;
+        $fixPromotor = ($haslProm / count($getjumlahdataPengajar));
+        $fixDektrator = ($haslDekt / count($getjumlahdataPengajar));
         $hasil = ($fixPromotor - $fixDektrator);
+
         return response()->json([
           'success' => true,
           'promotor' => $haslProm,
           'dektrator' => $haslDekt,
-          'hasilPromotor' => $fixPromotor,
-          'hasilDektrator' => $fixDektrator,
-          'hasil' => $hasil,
+          'hasilPromotor' => gettype($fixPromotor) == 'double' ? number_format($fixPromotor, 2) : $fixPromotor,
+          'hasilDektrator' => gettype($fixDektrator) == 'double' ? number_format($fixDektrator, 2) : $fixDektrator,
+          'hasil' => gettype($hasil) == 'double' ? number_format($hasil, 2) : $hasil,
           'jumlah' => count($getjumlahdataPengajar)
         ]);
       } else {
@@ -98,8 +111,18 @@ class HomePage extends Controller
   {
     try {
       $getjumlahdataLab = DB::select("SELECT k.* FROM kuesioner k, pertanyaan p WHERE k.id_pertanyaan=p.id  and p.type not in ('PENGAJAR', 'PERPUSTAKAAN') and k.id_guru = '0' and k.id_jurusan ='" . $request->id_jurusan . "' group by k.id_siswa");
-      $getPromotorLab = DB::select("SELECT k.*, COUNT(IF( k.nilai >= 9, 'prom', null)) AS prom, COUNT(IF( k.nilai <= 6, 'dekt', null)) AS dekt, IF(COUNT(IF( k.nilai >= 9, 'prom', null)) > COUNT(IF( k.nilai <= 6, 'dekt', null)), 'prom', 'dkt') as initial  FROM kuesioner k, pertanyaan p WHERE k.id_pertanyaan=p.id  and p.type not in ('PENGAJAR', 'PERPUSTAKAAN') and k.id_guru = '0' and k.id_jurusan ='" . $request->id_jurusan . "' GROUP BY k.id_siswa");
-      $getDektratorLab = DB::select("SELECT k.*, COUNT(IF( k.nilai >= 9, 'prom', null)) AS prom, COUNT(IF( k.nilai <= 6, 'dekt', null)) AS dekt, IF(COUNT(IF( k.nilai >= 9, 'prom', null)) > COUNT(IF( k.nilai <= 6, 'dekt', null)), 'prom', 'dkt') as initial  FROM kuesioner k, pertanyaan p WHERE k.id_pertanyaan=p.id  and p.type not in ('PENGAJAR', 'PERPUSTAKAAN') and k.id_guru = '0' and k.id_jurusan ='" . $request->id_jurusan . "' GROUP BY k.id_siswa");
+      $getPromotorLab = DB::select("SELECT k.*, SUM(k.nilai) as jml_nilai, 
+CASE
+    WHEN SUM(k.nilai) >= 90 THEN 'prom'
+    WHEN SUM(k.nilai) < 70 THEN 'dkt'
+    ELSE 'passive'
+END  initial  FROM kuesioner k, pertanyaan p WHERE k.id_pertanyaan=p.id  and p.type not in ('PENGAJAR', 'PERPUSTAKAAN') and k.id_guru = '0' and k.id_jurusan ='" . $request->id_jurusan . "' GROUP BY k.id_siswa");
+      $getDektratorLab = DB::select("SELECT k.*, SUM(k.nilai) as jml_nilai, 
+CASE
+    WHEN SUM(k.nilai) >= 90 THEN 'prom'
+    WHEN SUM(k.nilai) < 70 THEN 'dkt'
+    ELSE 'passive'
+END  initial  FROM kuesioner k, pertanyaan p WHERE k.id_pertanyaan=p.id  and p.type not in ('PENGAJAR', 'PERPUSTAKAAN') and k.id_guru = '0' and k.id_jurusan ='" . $request->id_jurusan . "' GROUP BY k.id_siswa");
       $haslProm = 0;
       $haslDekt = 0;
       foreach ($getPromotorLab as $key => $a) {
@@ -124,9 +147,9 @@ class HomePage extends Controller
         'success' => true,
         'promotor' => $haslProm,
         'dektrator' => $haslDekt,
-        'hasilPromotor' => $fixPromotorLab,
-        'hasilDektrator' => $fixDektratorLab,
-        'hasil' => $hasil,
+        'hasilPromotor' => gettype($fixPromotorLab) == 'double' ? number_format($fixPromotorLab, 2) : $fixPromotorLab,
+        'hasilDektrator' => gettype($fixDektratorLab) == 'double' ? number_format($fixDektratorLab, 2) : $fixDektratorLab,
+        'hasil' => gettype($hasil) == 'double' ? number_format($hasil, 2) : $hasil,
         'jumlah' => count($getjumlahdataLab)
       ]);
     } catch (\Throwable $th) {
@@ -142,8 +165,18 @@ class HomePage extends Controller
       //code...
 
       $getjumlahdataPerpus = DB::select("SELECT k.* FROM kuesioner k, pertanyaan p WHERE k.id_pertanyaan=p.id  and p.type = 'PERPUSTAKAAN' and k.id_guru = '0' group by k.id_siswa");
-      $getPromotorPerpus = DB::select("SELECT k.*, COUNT(IF( k.nilai >= 9, 'prom', null)) AS prom, COUNT(IF( k.nilai <= 6, 'dekt', null)) AS dekt, IF(COUNT(IF( k.nilai >= 9, 'prom', null)) > COUNT(IF( k.nilai <= 6, 'dekt', null)), 'prom', 'dkt') as initial  FROM kuesioner k, pertanyaan p WHERE k.id_pertanyaan=p.id  and p.type = 'PERPUSTAKAAN' and k.id_guru = '0' GROUP BY k.id_siswa");
-      $getDektratorPerpus = DB::select("SELECT k.*, COUNT(IF( k.nilai >= 9, 'prom', null)) AS prom, COUNT(IF( k.nilai <= 6, 'dekt', null)) AS dekt, IF(COUNT(IF( k.nilai >= 9, 'prom', null)) > COUNT(IF( k.nilai <= 6, 'dekt', null)), 'prom', 'dkt') as initial  FROM kuesioner k, pertanyaan p WHERE k.id_pertanyaan=p.id  and p.type = 'PERPUSTAKAAN' and k.id_guru = '0' GROUP BY k.id_siswa");
+      $getPromotorPerpus = DB::select("SELECT k.*, SUM(k.nilai) as jml_nilai, 
+CASE
+    WHEN SUM(k.nilai) >= 90 THEN 'prom'
+    WHEN SUM(k.nilai) < 70 THEN 'dkt'
+    ELSE 'passive'
+END  initial  FROM kuesioner k, pertanyaan p WHERE k.id_pertanyaan=p.id  and p.type = 'PERPUSTAKAAN' and k.id_guru = '0' GROUP BY k.id_siswa");
+      $getDektratorPerpus = DB::select("SELECT k.*, SUM(k.nilai) as jml_nilai, 
+CASE
+    WHEN SUM(k.nilai) >= 90 THEN 'prom'
+    WHEN SUM(k.nilai) < 70 THEN 'dkt'
+    ELSE 'passive'
+END  initial  FROM kuesioner k, pertanyaan p WHERE k.id_pertanyaan=p.id  and p.type = 'PERPUSTAKAAN' and k.id_guru = '0' GROUP BY k.id_siswa");
       
       $haslProm = 0;
       $haslDekt = 0;
@@ -163,13 +196,15 @@ class HomePage extends Controller
       $fixPromotorPerpus = ($haslProm / count($getjumlahdataPerpus)) * 1;
       $fixDektratorPerpus = ($haslDekt / count($getjumlahdataPerpus)) * 1;
       $hasil = ($fixPromotorPerpus - $fixDektratorPerpus);
+
+      // dd(gettype($fixPromotorPerpus));
       return response()->json([
         'success' => true,
         'promotor' => $haslProm,
         'dektrator' => $haslDekt,
-        'hasilPromotor' => $fixPromotorPerpus,
-        'hasilDektrator' => $fixDektratorPerpus,
-        'hasil' => $hasil,
+        'hasilPromotor' => gettype($fixPromotorPerpus) == 'double' ? number_format($fixPromotorPerpus, 2) : $fixPromotorPerpus,
+        'hasilDektrator' => gettype($fixDektratorPerpus) == 'double' ? number_format($fixDektratorPerpus, 2) : $fixDektratorPerpus,
+        'hasil' => gettype($hasil) == 'double' ? number_format($hasil, 2) : $hasil,
         'jumlah' => count($getjumlahdataPerpus)
       ]);
     } catch (\Throwable $th) {
@@ -177,9 +212,9 @@ class HomePage extends Controller
         'success' => true,
         'promotor' => count($getPromotorPerpus),
         'dektrator' => count($getDektratorPerpus),
-        'hasilPromotor' => number_format($fixPromotorPerpus, 2),
-        'hasilDektrator' => number_format($fixDektratorPerpus, 2),
-        'hasil' => number_format($hasil, 2),
+        'hasilPromotor' => gettype($fixPromotorPerpus) == 'double' ? number_format($fixPromotorPerpus, 2) : $fixPromotorPerpus,
+        'hasilDektrator' => gettype($fixDektratorPerpus) == 'double' ? number_format($fixDektratorPerpus, 2) : $fixDektratorPerpus,
+        'hasil' => gettype($hasil) == 'double' ? number_format($hasil, 2) : $hasil,
         'jumlah' => count($getjumlahdataPerpus)
       ]);
     }

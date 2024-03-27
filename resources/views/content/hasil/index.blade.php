@@ -187,7 +187,7 @@
                 },
                 dataType: 'json',
                 success: function(data) {
-                    console.log(data.success);
+                    console.log(data.hasilPromotor);
                     if (data.success == true) {
                         $('#promotor').text(data.promotor);
                         $('#jumlah').text(data.jumlah);
@@ -227,7 +227,7 @@
                 },
                 dataType: 'json',
                 success: function(data) {
-                    console.log(data.success);
+                    // console.log(parseFloat(data.hasilPromotor));
                     if (data.success == true) {
                         $('#promotor').text(data.promotor);
                         $('#jumlah').text(data.jumlah);

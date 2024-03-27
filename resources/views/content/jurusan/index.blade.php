@@ -76,7 +76,7 @@
                                                     data-bs-target="#EditJurusan{{ $a->id }}"><i
                                                         class="mdi mdi-pencil-outline me-1"></i>
                                                     Edit</button>
-                                                <a class="dropdown-item" href="/kelas/{{ $a->id }}"><i
+                                                <a class="dropdown-item" href="/jurusan/{{ $a->id }}"><i
                                                         class="mdi mdi-trash-can-outline me-1"></i> Delete</a>
                                             </div>
                                         </div>

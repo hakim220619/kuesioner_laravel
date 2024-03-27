@@ -58,7 +58,7 @@ class KuesionerController extends Controller
     function add(Request $request)
     {
         $cekData = DB::table('kuesioner')->where('id_guru', $request->id_guru)->where('id_siswa', request()->user()->id)->where('id_kelas', $request->id_kelas)->where('id_pertanyaan', $request->id_pertanyaan)->first();
-
+        // dd($cekData);
         if ($cekData == null) {
             # code...
 
